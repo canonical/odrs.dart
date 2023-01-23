@@ -3,15 +3,25 @@ import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:glib/glib.dart';
+import 'package:odrs/odrs.dart';
 
-String getUserHash({
-  required String salt,
+OdrsClient createOdrsClient({String? app, required String url}) {
+  return OdrsClient(
+    url: Uri.parse(url),
+    userHash: _getUserHash(salt: app),
+    distro: _getDistroName(),
+  );
+}
+
+String _getUserHash({
+  String? salt,
   String? username,
   String? machineId,
 }) {
-  username ??= g_get_user_name();
+  salt ??= glib.getProgramName();
+  username ??= glib.getUserName();
   machineId ??= File('/etc/machine-id').readAsStringSync().trim();
   return sha1.convert(utf8.encode('$salt[$username:$machineId]')).toString();
 }
 
-String getDistroName() => g_get_os_info(G_OS_INFO_KEY_NAME) ?? 'unknown';
+String _getDistroName() => glib.getOsInfo(GOsInfoKey.name) ?? 'unknown';
