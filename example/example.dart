@@ -5,7 +5,7 @@ Future<void> main() async {
   final client = OdrsClient(
     url: Uri.parse('https://odrs-dev.apps.openshift4.gnome.org/'),
     userHash: getUserHash(salt: 'my_app'),
-    distro: await getDistroName().then((d) => d ?? 'unknown'),
+    distro: getDistroName(),
   );
 
   print('Fetching all ratings...');

@@ -5,10 +5,12 @@ environment:
   sdk: '>=2.18.0 <3.0.0'
 
 dependencies:
-  crypto: ^3.0.2
   meta: ^1.8.0
-  stdlibc: ^0.1.1
 
 dev_dependencies:
+  crypto: ^3.0.2
+  glib:
+    git:
+      url: https://github.com/ubuntu-flutter-community/glib.dart.git
   lints: ^2.0.1
   test: ^1.22.2
