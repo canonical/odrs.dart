@@ -35,13 +35,15 @@ class OdrsClient {
   /// Get the star ratings for all known applications.
   Future<Map<String, OdrsRating>> getRatings() {
     return _request<Map>('GET', '1.0/reviews/api/ratings').then(
-        (value) => value.map((k, v) => MapEntry(k, OdrsRating.fromJson(v))));
+        (value) => value!.map((k, v) => MapEntry(k, OdrsRating.fromJson(v))));
   }
 
   /// Get the star ratings for a specific application.
-  Future<OdrsRating> getRating(String appId) {
-    return _request<Map>('GET', '1.0/reviews/api/ratings/$appId')
-        .then((value) => OdrsRating.fromJson(value.cast<String, dynamic>()));
+  Future<OdrsRating?> getRating(String appId) {
+    return _request<Map>('GET', '1.0/reviews/api/ratings/$appId').then(
+        (value) => value != null
+            ? OdrsRating.fromJson(value.cast<String, dynamic>())
+            : null);
   }
 
   /// Submit a review for an application.
@@ -69,7 +71,7 @@ class OdrsClient {
     return _request('POST', '1.0/reviews/api/submit', body: json);
   }
 
-  Future<T> _request<T>(
+  Future<T?> _request<T>(
     String method,
     String path, {
     Map<String, dynamic> queryParameters = const {},
@@ -87,11 +89,11 @@ class OdrsClient {
     return _response<T>(await request.close());
   }
 
-  Future<T> _response<T>(HttpClientResponse response) async {
+  Future<T?> _response<T>(HttpClientResponse response) async {
     final json = jsonDecode(await response.transform(utf8.decoder).join());
     if (json is Map && json['success'] == false) {
       throw OdrsException(json['msg'] as String);
     }
-    return json as T;
+    return json is T ? json : null;
   }
 }
