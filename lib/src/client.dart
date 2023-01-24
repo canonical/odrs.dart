@@ -26,8 +26,6 @@ class OdrsClient {
     return client;
   }
 
-  Uri get url => _url;
-
   set userAgent(String? value) => _client.userAgent = value;
 
   void close() => _client.close();
@@ -58,7 +56,6 @@ class OdrsClient {
   }) async {
     final json = {
       'user_hash': _userHash,
-      'user_skey': '???',
       'app_id': appId,
       'locale': locale ?? Platform.localeName,
       'distro': _distro,
@@ -74,7 +71,7 @@ class OdrsClient {
   Future<T?> _request<T>(
     String method,
     String path, {
-    Map<String, dynamic> queryParameters = const {},
+    Map<String, dynamic>? queryParameters,
     Map<String, Object> headers = const {},
     dynamic body,
   }) async {
