@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'exception.dart';
 import 'rating.dart';
+import 'review.dart';
 
 class OdrsClient {
   OdrsClient({
@@ -42,6 +43,17 @@ class OdrsClient {
         (value) => value != null
             ? OdrsRating.fromJson(value.cast<String, dynamic>())
             : null);
+  }
+
+  Future<List<OdrsReview>> getReviews(String appId, {String? userHash}) {
+    return _request<List>(
+      'GET',
+      '1.0/reviews/api/app/$appId',
+      queryParameters: userHash != null ? {'user_hash': userHash} : null,
+    )
+        .then((value) =>
+            value!.map((v) => OdrsReview.fromJson(v.cast<String, dynamic>())))
+        .then((value) => value.toList());
   }
 
   /// Submit a review for an application.

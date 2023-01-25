@@ -112,6 +112,94 @@ void main() {
     );
   });
 
+  test('get reviews', () async {
+    final http = MockHttpClient();
+    final url = localhost.resolve('/1.0/reviews/api/app/foo.bar.baz');
+    final request = mockRequest([
+      {
+        'app_id': 'foo.bar.baz',
+        'date_created': 1234567890.0,
+        'description': 'This is a description',
+        'distro': 'Ubuntu',
+        'karma_down': 0,
+        'karma_up': 0,
+        'locale': 'en_US.UTF-8',
+        'rating': 80,
+        'reported': 0,
+        'review_id': 123456,
+        'summary': 'This is a summary',
+        'user_display': 'Somebody',
+        'user_hash': '123456',
+        'version': '1.2.3'
+      },
+      {
+        'app_id': 'foo.bar.baz',
+        'date_created': 1122334455.0,
+        'description': 'Another description',
+        'distro': 'Ubuntu',
+        'karma_down': 1,
+        'karma_up': 2,
+        'locale': 'en_UK.UTF-8',
+        'rating': 20,
+        'reported': 3,
+        'review_id': 112233,
+        'summary': 'Another summary',
+        'user_display': 'Nobody',
+        'user_hash': '112233',
+        'version': '0.0.0'
+      },
+    ]);
+    when(http.openUrl('GET', url)).thenAnswer((_) async => request);
+
+    final client = OdrsClient(
+      url: localhost,
+      client: http,
+      userHash: '',
+      distro: '',
+    );
+    final reviews = await client.getReviews('foo.bar.baz');
+    verify(http.openUrl('GET', url)).called(1);
+    verify(request.close()).called(1);
+
+    expect(
+      reviews,
+      equals([
+        OdrsReview(
+          appId: 'foo.bar.baz',
+          dateCreated: DateTime.fromMillisecondsSinceEpoch(1234567890 * 1000),
+          description: 'This is a description',
+          distro: 'Ubuntu',
+          karmaDown: 0,
+          karmaUp: 0,
+          locale: 'en_US.UTF-8',
+          rating: 80,
+          reported: 0,
+          reviewId: 123456,
+          summary: 'This is a summary',
+          userDisplay: 'Somebody',
+          userHash: '123456',
+          version: '1.2.3',
+        ),
+        OdrsReview(
+          appId: 'foo.bar.baz',
+          dateCreated: DateTime.fromMillisecondsSinceEpoch(1122334455 * 1000),
+          description: 'Another description',
+          distro: 'Ubuntu',
+          karmaDown: 1,
+          karmaUp: 2,
+          locale: 'en_UK.UTF-8',
+          rating: 20,
+          reported: 3,
+          reviewId: 112233,
+          summary: 'Another summary',
+          userDisplay: 'Nobody',
+          userHash: '112233',
+          version: '0.0.0',
+        ),
+      ]),
+    );
+  });
+
   test('submit review', () async {
     final http = MockHttpClient();
     final url = localhost.resolve('/1.0/reviews/api/submit');
