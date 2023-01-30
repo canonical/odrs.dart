@@ -69,6 +69,36 @@ class OdrsClient {
         .then((value) => value.toList());
   }
 
+  /// Upvote an existing review by one karma point.
+  Future<void> upvoteReview(OdrsReview review) {
+    return _voteReview(review, 'upvote');
+  }
+
+  /// Downvote an existing review by one karma point.
+  Future<void> downvoteReview(OdrsReview review) {
+    return _voteReview(review, 'downvote');
+  }
+
+  /// Dismiss a review without rating it up or down.
+  Future<void> dismissReview(OdrsReview review) {
+    return _voteReview(review, 'dismiss');
+  }
+
+  /// Report a review for abuse.
+  Future<void> reportReview(OdrsReview review) {
+    return _voteReview(review, 'report');
+  }
+
+  Future<void> _voteReview(OdrsReview review, String vote) {
+    final json = {
+      'app_id': review.appId,
+      'review_id': review.reviewId,
+      'user_hash': _userHash,
+      'user_skey': review.userSkey,
+    };
+    return _request('POST', '1.0/reviews/api/$vote', body: json);
+  }
+
   /// Submit a review for an application.
   Future<void> submitReview({
     required String appId,
@@ -78,7 +108,7 @@ class OdrsClient {
     required String userDisplay,
     required String summary,
     required String description,
-  }) async {
+  }) {
     final json = {
       'user_hash': _userHash,
       'app_id': appId,
