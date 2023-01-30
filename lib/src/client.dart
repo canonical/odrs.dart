@@ -38,6 +38,7 @@ class OdrsClient {
   }
 
   /// Get the star ratings for a specific application.
+  // NOTE: https://odrs-dev.apps.openshift4.gnome.org works, https://odrs.gnome.org not
   Future<OdrsRating?> getRating(String appId) {
     return _request<Map>('GET', '1.0/reviews/api/ratings/$appId').then(
         (value) => value != null
