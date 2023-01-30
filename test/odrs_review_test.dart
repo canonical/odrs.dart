@@ -17,6 +17,7 @@ void main() {
       'summary': 'This is a summary',
       'user_display': 'Somebody',
       'user_hash': '123456',
+      'user_skey': 'abcdef',
       'version': '1.2.3'
     };
 
@@ -34,6 +35,7 @@ void main() {
       summary: 'This is a summary',
       userDisplay: 'Somebody',
       userHash: '123456',
+      userSkey: 'abcdef',
       version: '1.2.3',
     );
 

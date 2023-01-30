@@ -10,7 +10,7 @@ Future<void> main(List<String> args) async {
   final client = createOdrsClient(url: 'https://odrs.gnome.org/');
 
   print('Please wait. Fetching reviews...');
-  final reviews = await client.getReviews(args.single);
+  final reviews = await client.getReviews(appId: args.single, version: '0');
   for (final review in reviews) {
     print(review);
   }

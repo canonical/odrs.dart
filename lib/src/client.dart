@@ -46,12 +46,24 @@ class OdrsClient {
             : null);
   }
 
-  Future<List<OdrsReview>> getReviews(String appId, {String? userHash}) {
-    return _request<List>(
-      'GET',
-      '1.0/reviews/api/app/$appId',
-      queryParameters: userHash != null ? {'user_hash': userHash} : null,
-    )
+  /// Return details about an application.
+  Future<List<OdrsReview>> getReviews({
+    required String appId,
+    String? locale,
+    int limit = 0,
+    int start = 0,
+    required String version,
+  }) {
+    final json = {
+      'user_hash': _userHash,
+      'app_id': appId,
+      'locale': locale ?? Platform.localeName,
+      'distro': _distro,
+      'limit': limit,
+      'start': start,
+      'version': version,
+    };
+    return _request<List>('POST', '1.0/reviews/api/fetch', body: json)
         .then((value) =>
             value!.map((v) => OdrsReview.fromJson(v.cast<String, dynamic>())))
         .then((value) => value.toList());

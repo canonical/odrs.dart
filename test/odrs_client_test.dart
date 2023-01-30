@@ -114,7 +114,7 @@ void main() {
 
   test('get reviews', () async {
     final http = MockHttpClient();
-    final url = localhost.resolve('/1.0/reviews/api/app/foo.bar.baz');
+    final url = localhost.resolve('/1.0/reviews/api/fetch');
     final request = mockRequest([
       {
         'app_id': 'foo.bar.baz',
@@ -130,6 +130,7 @@ void main() {
         'summary': 'This is a summary',
         'user_display': 'Somebody',
         'user_hash': '123456',
+        'user_skey': 'abcdef',
         'version': '1.2.3'
       },
       {
@@ -146,10 +147,11 @@ void main() {
         'summary': 'Another summary',
         'user_display': 'Nobody',
         'user_hash': '112233',
+        'user_skey': 'aabbcc',
         'version': '0.0.0'
       },
     ]);
-    when(http.openUrl('GET', url)).thenAnswer((_) async => request);
+    when(http.openUrl('POST', url)).thenAnswer((_) async => request);
 
     final client = OdrsClient(
       url: localhost,
@@ -157,8 +159,8 @@ void main() {
       userHash: '',
       distro: '',
     );
-    final reviews = await client.getReviews('foo.bar.baz');
-    verify(http.openUrl('GET', url)).called(1);
+    final reviews = await client.getReviews(appId: 'foo.bar.baz', version: '0');
+    verify(http.openUrl('POST', url)).called(1);
     verify(request.close()).called(1);
 
     expect(
@@ -178,6 +180,7 @@ void main() {
           summary: 'This is a summary',
           userDisplay: 'Somebody',
           userHash: '123456',
+          userSkey: 'abcdef',
           version: '1.2.3',
         ),
         OdrsReview(
@@ -194,6 +197,7 @@ void main() {
           summary: 'Another summary',
           userDisplay: 'Nobody',
           userHash: '112233',
+          userSkey: 'aabbcc',
           version: '0.0.0',
         ),
       ]),
