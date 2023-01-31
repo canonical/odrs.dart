@@ -20,6 +20,10 @@ class OdrsRating {
   final int star5;
   final int total;
 
+  double get average {
+    return (star1 + 2 * star2 + 3 * star3 + 4 * star4 + 5 * star5) / total;
+  }
+
   factory OdrsRating.fromJson(Map<String, dynamic> json) {
     return OdrsRating(
       star0: json['star0'] as int,

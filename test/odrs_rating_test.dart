@@ -26,4 +26,18 @@ void main() {
     expect(rating.toJson(), equals(json));
     expect(OdrsRating.fromJson(json), equals(rating));
   });
+
+  test('average', () {
+    final rating = OdrsRating(
+      star0: 1,
+      star1: 2,
+      star2: 3,
+      star3: 4,
+      star4: 5,
+      star5: 6,
+      total: 21,
+    );
+
+    expect(rating.average, closeTo(3.333, 0.001));
+  });
 }
