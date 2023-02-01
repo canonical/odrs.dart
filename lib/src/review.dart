@@ -40,7 +40,7 @@ class OdrsReview {
     return OdrsReview(
       appId: json['app_id'] as String,
       dateCreated: DateTime.fromMillisecondsSinceEpoch(
-        ((json['date_created'] as double) * 1000.0).round(),
+        ((json['date_created'] as double? ?? 0) * 1000.0).round(),
       ),
       description: json['description'] as String?,
       distro: json['distro'] as String?,
@@ -49,7 +49,7 @@ class OdrsReview {
       locale: json['locale'] as String?,
       rating: json['rating'] as int? ?? 0,
       reported: json['reported'] as int? ?? 0,
-      reviewId: json['review_id'] as int,
+      reviewId: json['review_id'] as int? ?? -1,
       summary: json['summary'] as String?,
       userDisplay: json['user_display'] as String?,
       userHash: json['user_hash'] as String?,
