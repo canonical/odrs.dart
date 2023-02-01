@@ -53,7 +53,7 @@ class OdrsClient {
     String? locale,
     int limit = 0,
     int start = 0,
-    required String version,
+    String? version,
   }) {
     final json = {
       'user_hash': _userHash,
@@ -63,7 +63,7 @@ class OdrsClient {
       'distro': _distro,
       'limit': limit,
       'start': start,
-      'version': version,
+      'version': version ?? 0,
     };
     return _request<List>('POST', '1.0/reviews/api/fetch', body: json)
         .then((value) =>

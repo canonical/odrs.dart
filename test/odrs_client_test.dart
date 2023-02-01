@@ -159,7 +159,7 @@ void main() {
       userHash: '',
       distro: '',
     );
-    final reviews = await client.getReviews(appId: 'foo.bar.baz', version: '0');
+    final reviews = await client.getReviews(appId: 'foo.bar.baz');
     verify(http.openUrl('POST', url)).called(1);
     verify(request.close()).called(1);
 
