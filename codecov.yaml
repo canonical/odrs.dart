@@ -1,0 +1,4 @@
+comment: false
+ignore:
+  - "**/*.g.dart"
+  - "**/*.mocks.dart"
