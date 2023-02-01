@@ -49,6 +49,7 @@ class OdrsClient {
   /// Return details about an application.
   Future<List<OdrsReview>> getReviews({
     required String appId,
+    List<String>? compatIds,
     String? locale,
     int limit = 0,
     int start = 0,
@@ -57,6 +58,7 @@ class OdrsClient {
     final json = {
       'user_hash': _userHash,
       'app_id': appId,
+      if (compatIds != null) 'compat_ids': compatIds,
       'locale': locale ?? Platform.localeName,
       'distro': _distro,
       'limit': limit,
