@@ -136,6 +136,7 @@ class OdrsClient {
       method,
       _url.resolve(path).replace(queryParameters: queryParameters),
     );
+    request.headers.contentType = ContentType.json;
     for (final header in headers.entries) {
       request.headers.add(header.key, header.value);
     }
@@ -145,16 +146,10 @@ class OdrsClient {
 
   Future<T?> _response<T>(HttpClientResponse response) async {
     final data = await response.transform(utf8.decoder).join();
-    try {
-      final json = jsonDecode(data);
-      if (json is Map && json['success'] == false) {
-        throw OdrsException(json['msg'] as String);
-      }
-      return json is T ? json : null;
-    } on FormatException catch (e) {
-      // TODO: https://github.com/ubuntu-flutter-community/odrs.dart/issues/1
-      // print(data);
-      throw OdrsException('Invalid response: ${e.message}');
+    final json = jsonDecode(data);
+    if (json is Map && json['success'] == false) {
+      throw OdrsException(json['msg'] as String);
     }
+    return json is T ? json : null;
   }
 }
