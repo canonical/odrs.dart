@@ -1,5 +1,3 @@
-import 'package:odrs/odrs.dart';
-
 import 'utils.dart';
 
 Future<void> main() async {
@@ -12,10 +10,4 @@ Future<void> main() async {
   }
 
   client.close();
-}
-
-extension OdrsRatingX on OdrsRating {
-  double get average {
-    return (star1 + 2 * star2 + 3 * star3 + 4 * star4 + 5 * star5) / total;
-  }
 }
