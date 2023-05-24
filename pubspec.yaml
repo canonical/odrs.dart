@@ -2,7 +2,7 @@ name: odrs
 publish_to: 'none'
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   meta: ^1.8.0
@@ -12,5 +12,5 @@ dev_dependencies:
   crypto: ^3.0.2
   glib: ^0.0.0-dev.0
   lints: ^2.0.1
-  mockito: ^5.3.2
+  mockito: ^5.4.0
   test: ^1.22.2
