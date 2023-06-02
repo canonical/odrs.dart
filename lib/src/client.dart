@@ -7,19 +7,17 @@ import 'review.dart';
 
 class OdrsClient {
   OdrsClient({
-    required Uri url,
-    required String userHash,
-    required String distro,
+    required this.url,
+    required this.userHash,
+    required this.distro,
     HttpClient? client,
-  })  : _client = client ?? _createClient(url),
-        _url = url,
-        _userHash = userHash,
-        _distro = distro;
+  }) : _client = client ?? _createClient(url);
 
   final HttpClient _client;
-  final Uri _url;
-  final String _userHash;
-  final String _distro;
+
+  final Uri url;
+  final String userHash;
+  final String distro;
 
   static HttpClient _createClient(Uri url) {
     final client = HttpClient();
@@ -56,11 +54,11 @@ class OdrsClient {
     String? version,
   }) {
     final json = {
-      'user_hash': _userHash,
+      'user_hash': userHash,
       'app_id': appId,
       if (compatIds != null) 'compat_ids': compatIds,
       'locale': locale ?? Platform.localeName,
-      'distro': _distro,
+      'distro': distro,
       'limit': limit,
       'start': start,
       'version': version ?? 0,
@@ -95,7 +93,7 @@ class OdrsClient {
     final json = {
       'app_id': review.appId,
       'review_id': review.reviewId,
-      'user_hash': _userHash,
+      'user_hash': userHash,
       'user_skey': review.userSkey,
     };
     return _request('POST', '1.0/reviews/api/$vote', body: json);
@@ -112,10 +110,10 @@ class OdrsClient {
     required String description,
   }) {
     final json = {
-      'user_hash': _userHash,
+      'user_hash': userHash,
       'app_id': appId,
       'locale': locale ?? Platform.localeName,
-      'distro': _distro,
+      'distro': distro,
       'version': version,
       'user_display': userDisplay,
       'summary': summary,
@@ -134,7 +132,7 @@ class OdrsClient {
   }) async {
     final request = await _client.openUrl(
       method,
-      _url.resolve(path).replace(queryParameters: queryParameters),
+      url.resolve(path).replace(queryParameters: queryParameters),
     );
     request.headers.contentType = ContentType.json;
     for (final header in headers.entries) {
