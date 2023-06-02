@@ -12,6 +12,13 @@ import 'odrs_client_test.mocks.dart';
 void main() {
   final localhost = Uri.https('localhost:8080');
 
+  test('client properties', () async {
+    final client = OdrsClient(url: localhost, userHash: 'foo', distro: 'bar');
+    expect(client.url, equals(localhost));
+    expect(client.userHash, equals('foo'));
+    expect(client.distro, equals('bar'));
+  });
+
   test('get ratings', () async {
     final http = MockHttpClient();
     final url = localhost.resolve('/1.0/reviews/api/ratings');
