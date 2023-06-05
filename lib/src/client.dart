@@ -153,7 +153,7 @@ class OdrsClient {
     } on FormatException catch (e) {
       // TODO: https://github.com/ubuntu-flutter-community/odrs.dart/issues/1
       // print(data);
-      throw OdrsException('Invalid response: ${e.message}');
+      throw OdrsException(e.message);
     }
   }
 }
