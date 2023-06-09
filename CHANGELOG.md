@@ -1,3 +1,7 @@
+## 0.0.4
+
+- feat: add vote_id to be able to recognize self-voted reviews (#15)
+
 ## 0.0.3
 
 - feat: parse ODRS errors (#14)
