@@ -18,6 +18,7 @@ class OdrsReview {
     this.userHash,
     this.userSkey,
     this.version,
+    this.voteId,
   });
 
   final String appId;
@@ -35,6 +36,7 @@ class OdrsReview {
   final String? userHash;
   final String? userSkey;
   final String? version;
+  final int? voteId;
 
   factory OdrsReview.fromJson(Map<String, dynamic> json) {
     return OdrsReview(
@@ -55,6 +57,7 @@ class OdrsReview {
       userHash: json['user_hash'] as String?,
       userSkey: json['user_skey'] as String?,
       version: json['version'] as String?,
+      voteId: json['vote_id'] as int?,
     );
   }
 
@@ -75,6 +78,7 @@ class OdrsReview {
       'user_hash': userHash,
       'user_skey': userSkey,
       'version': version,
+      'vote_id': voteId,
     };
   }
 
@@ -96,7 +100,8 @@ class OdrsReview {
         other.userDisplay == userDisplay &&
         other.userHash == userHash &&
         other.userSkey == userSkey &&
-        other.version == version;
+        other.version == version &&
+        other.voteId == voteId;
   }
 
   @override
@@ -117,11 +122,12 @@ class OdrsReview {
       userHash,
       userSkey,
       version,
+      voteId,
     );
   }
 
   @override
   String toString() {
-    return 'OdrsReview(appId: $appId, dateCreated: $dateCreated, description: $description, distro: $distro, karmaDown: $karmaDown, karmaUp: $karmaUp, locale: $locale, rating: $rating, reported: $reported, reviewId: $reviewId, summary: $summary, userDisplay: $userDisplay, userHash: $userHash, userSkey: $userSkey, version: $version)';
+    return 'OdrsReview(appId: $appId, dateCreated: $dateCreated, description: $description, distro: $distro, karmaDown: $karmaDown, karmaUp: $karmaUp, locale: $locale, rating: $rating, reported: $reported, reviewId: $reviewId, summary: $summary, userDisplay: $userDisplay, userHash: $userHash, userSkey: $userSkey, version: $version, voteId: $voteId)';
   }
 }
