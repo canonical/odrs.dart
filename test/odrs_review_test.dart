@@ -18,7 +18,8 @@ void main() {
       'user_display': 'Somebody',
       'user_hash': '123456',
       'user_skey': 'abcdef',
-      'version': '1.2.3'
+      'version': '1.2.3',
+      'vote_id': null,
     };
 
     final review = OdrsReview(
@@ -37,6 +38,7 @@ void main() {
       userHash: '123456',
       userSkey: 'abcdef',
       version: '1.2.3',
+      voteId: null,
     );
 
     expect(review.toJson(), equals(json));

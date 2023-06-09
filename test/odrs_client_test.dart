@@ -138,7 +138,8 @@ void main() {
         'user_display': 'Somebody',
         'user_hash': '123456',
         'user_skey': 'abcdef',
-        'version': '1.2.3'
+        'version': '1.2.3',
+        'vote_id': 1,
       },
       {
         'app_id': 'foo.bar.baz',
@@ -155,7 +156,7 @@ void main() {
         'user_display': 'Nobody',
         'user_hash': '112233',
         'user_skey': 'aabbcc',
-        'version': '0.0.0'
+        'version': '0.0.0',
       },
     ]);
     when(http.openUrl('POST', url)).thenAnswer((_) async => request);
@@ -189,6 +190,7 @@ void main() {
           userHash: '123456',
           userSkey: 'abcdef',
           version: '1.2.3',
+          voteId: 1,
         ),
         OdrsReview(
           appId: 'foo.bar.baz',
@@ -206,6 +208,7 @@ void main() {
           userHash: '112233',
           userSkey: 'aabbcc',
           version: '0.0.0',
+          voteId: null,
         ),
       ]),
     );
