@@ -1,8 +1,8 @@
 name: odrs
 description: Open Desktop Ratings Service (ODRS) client for Dart.
 homepage: https://odrs.gnome.org/
-repository: https://github.com/ubuntu-flutter-community/odrs.dart
-issue_tracker: https://github.com/ubuntu-flutter-community/odrs.dart/issues
+repository: https://github.com/canonical/odrs.dart
+issue_tracker: https://github.com/canonical/odrs.dart/issues
 version: 0.0.4
 
 environment:

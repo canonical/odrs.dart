@@ -151,7 +151,7 @@ class OdrsClient {
       }
       return json is T ? json : null;
     } on FormatException catch (e) {
-      // TODO: https://github.com/ubuntu-flutter-community/odrs.dart/issues/1
+      // TODO: https://github.com/canonical/odrs.dart/issues/1
       // print(data);
       throw OdrsException(e.message);
     }
