@@ -15,6 +15,6 @@ dev_dependencies:
   build_runner: ^2.3.3
   crypto: ^3.0.2
   glib: ^0.0.1
-  lints: ^2.0.1
+  lints: ^3.0.0
   mockito: ^5.4.0
   test: ^1.22.2
